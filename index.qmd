@@ -1,22 +1,29 @@
 ---
-title: "Lab 02: Julia Basics"
+title: "Lab 2: Julia Basics"
 subtitle: "Functions, Logic, and Packages"
 author: "CEVE 421/521"
 jupyter: julia-1.9
 date: 2024-01-19
-week: 02
+week: 2
 categories: [Lab]
 
 format: 
     html: default
-#    pdf:
-#        documentclass: article
-#        fontsize: 10pt
-#        geometry:
-#            - margin=1in  
-#    docx: 
-#        toc: true
-#        fig-format: png
+
+    # YOU DO NOT NEED BOTH PDF AND DOCX.
+    # COMMENT OR DELETE THE ONE YOU DON'T WANT TO USE.
+    pdf:
+        documentclass: article
+        fontsize: 11pt
+        geometry:
+            - margin=1in  
+        number-sections: true
+        code-line-numbers: true
+    docx: 
+        toc: true
+        fig-format: png
+        number-sections: true
+        code-line-numbers: true
 
 date-format: "ddd., MMM. D"
 ---
