@@ -2,23 +2,42 @@
 title: "Lab 2: Julia Quickstart"
 subtitle: "Functions, Logic, and Packages"
 author: "CEVE 421/521" # Replace with <YOUR NAME> (<NETID>)
-jupyter: julia-1.10
 date: 2024-01-19
 week: 2
 categories: [Lab]
 
+# code to use
+jupyter: julia-1.10
+
+# execution options
+execute:
+  freeze: auto  
+  cache: true
+
 format: 
-    html: default
+    html:
+        theme: spacelab
+        copy-code: true
+        code-overflow: wrap
+        toc: true
+        anchor-sections: true
+        callout-appearance: simple
+        reference-location: document
+        citations-hover: true
+        code-annotations: hover
+        code-line-numbers: true
+        html-math-method: katex
 
     # YOU DO NOT NEED BOTH PDF AND DOCX.
     # COMMENT OR DELETE THE ONE YOU DON'T WANT TO USE.
-    #pdf:
-    #    documentclass: article
-    #    fontsize: 11pt
-    #    geometry:
-    #        - margin=1in  
-    #    number-sections: true
-    #    code-line-numbers: true
+    pdf:
+        documentclass: article
+        fontsize: 11pt
+        geometry:
+            - margin=1in  
+        number-sections: true
+        code-line-numbers: true
+        colorlinks: true
     docx: 
         toc: true
         fig-format: png
@@ -27,6 +46,8 @@ format:
 
 date-format: "ddd., MMM. D"
 ---
+
+# Overview
 
 In this lab we will learn how to work with tabular data in Julia.
 Specifically, you will get some experience using:
@@ -37,22 +58,28 @@ Specifically, you will get some experience using:
 1. [`Plots.jl`](https://docs.juliaplots.org/stable/tutorial/) and  [`StatsPlots.jl`](https://github.com/JuliaPlots/StatsPlots.jl) to create visualizations
 
 For those of you who took CEVE 543, you'll find most of this familiar!
-If you find this challenging (e.g., if you're new to programming) please look at the [Resources page](../../resources.qmd) for some tutorials.
+If you find this challenging (e.g., if you're new to programming) please look at the [Resources page](../../resources.qmd) which has links to tutorials that you can use to get up to speed.
+Some of you will work extra hard this week, and some of you will have an easier week.
 
-::: {.callout-important}
-## Instructions
+## This repository
 
-Much of this lab is example code with some narration to give you a sense of what's going on.
-However, when you see a box like this it means you need to do something!
-:::
+In this repository you will find two files.
 
-As with Lab 01, you should push your final code to GitHub and submit your rendered PDF or DOCX file to Canvas.
+1. `index.qmd` is the source code for the rendered document on the course website that you may be looking at now. That's this file!
+1. [`template.qmd`](template.qmd) is the template for your lab submission. You should edit it directly.
 
-## Setup
+## Submission
+
+As with Lab 01, you should:
+
+1. push your final code to GitHub (I'll be able to see it via GitHub classroom)
+1. submit your rendered PDF or DOCX file to Canvas
+
+# Setup
 
 Here are some instructions for getting this lab working.
 
-### Clone the repository
+## Clone the repository
 
 First, you’ll need to clone this repository to your computer.
 As with [Lab 01](../lab-01/index.qmd), I recommend to use GitHub Desktop or the built-in Git support in VS Code.
@@ -61,7 +88,7 @@ Remember to use the link from Canvas (`classroom.github.com/...`).
 Next, open the repository in VS Code (you can do this directly from GitHub desktop if you'd like).
 All instructions from here assume you're in the *root directory* of the repository.
 
-### Install required packages
+## Install required packages
 
 As we saw in [Lab 01](../lab-01/index.qmd), Julia is a modular language with code in packages.
 Compared to a language like Python, the packages in Julia typically have a narrower scope (for example, instead of a single Pandas package that does everything, there are separate packages for reading CSV files, defining dataframes, using clear syntax for data manipulation, etc.).
@@ -74,7 +101,44 @@ When we're working with a new lab, we'll need to first install the packages we n
 
 [^precompilation]: Julia precompiles packages when they are installed, and (to a lesser extent) when they are first used. The first time you use a package it may take a moment to load. This is normal, nothing to worry about, and rapidly improving.
 
-### Looking ahead
+## Rendering and previewing
+
+As we saw in Lab 01, Quarto lets you convert a text file into an output.
+We've seen PDF, DOCX, and HTML (website) outputs, but there are other options as well.
+
+There are many valid workflows, but my favorite is often to `preview` the document in VS Code while I'm working on it, and then `render` it when I'm done.
+To preview the document, run the following in your terminal (use the command palette in VS and then select "Terminal: Open a new terminal" or learn the shortcut keys):
+
+```shell
+quarto preview template.qmd 
+```
+
+You should see that a web browser opens up with the rendered document.
+As you make changes, they should appear in the browser automatically.
+You'll see `localhost:XXXX` in your URL bar.
+
+To render this document to PDF or DOCX, you have a few options.
+My favorite is to use the terminal again.
+For example, to convert to PDF:
+
+```shell
+quarto render template.qmd --to pdf
+```
+
+If you run into issues, try the following two tips
+
+1. Make sure you're typing these commands into the *terminal* and not into the Julia REPL
+1. In the Julia REPL, type `]` to enter package manager mode and then type `build IJulia` to rebuild your IJulia kernel (we won't go into details)
+
+## Getting help
+
+If you're getting stuck, please:
+
+1. Come up and ask me questions if we're in lab
+1. Post on Canvas discussions
+1. If I can't resolve your comment on Canvas, please email me to schedule a 1:1
+
+## Looking ahead
 
 In the future, you'll repeat these steps *for every lab*:
 
@@ -84,7 +148,7 @@ In the future, you'll repeat these steps *for every lab*:
 1. make your changes, saving and `commit`ing regularly as you go 
 1. `push` your changes to GitHub (you don't have to wait until the end for this -- you can `push` multiple times)
 
-## Refresher: Quarto basics
+# Refresher: Quarto basics
 
 Before diving in, let's quickly review some Quarto basics.
 As we saw in the last lab, Quarto is a program that lets you combine text, code, and output in a single document.
@@ -98,13 +162,13 @@ For more, you can learn more about it [here](https://quarto.org/docs/authoring/m
 
 When you're authoring your labs, you should take advantage of Markdown features!
 
-### Document metadata
+## Document metadata
 
 If you open a Quarto file in your text editor (e.g., VS Code) or look at it on GitHub, you'll see that the file starts with some *metadata*.
 The metadata is a set of key-value pairs that tell Quarto how to render the document.
 In Lab 01, you edited the `author` field to include your name.
 
-### LaTeX Math
+## LaTeX Math
 
 As in standard Pandoc markdown, you can use LaTeX math in Quarto.
 For example, `$\alpha$` yields $\alpha$.
@@ -124,7 +188,7 @@ $$
 
 For more, see the "Typesetting Math" section of the [resources page](../../resources.qmd).
 
-### Source code
+## Source code
 
 Sometimes we want to provide example code in our documents.
 This is code that is not meant to be run, but is just there to illustrate a point.
@@ -160,7 +224,7 @@ f(x) = 1.25 * sin(2π * x / 1.5 + 0.5) + 0.25
 f(2.1)
 ```
 
-### Code blocks
+## Code blocks
 
 Often, we don't just want to show code, but we want to run it and show the output.
 
@@ -180,7 +244,7 @@ f(2.1)
 You can run these blocks in Julia by clicking the "Run Cell" button, or by pressing the keyboard shortcut (to see it, open the command palette and search for "Run Cell").
 For more on Julia, see [here](https://quarto.org/docs/computations/julia.html).
 
-### Citations
+## Citations
 
 You can add citations in Quarto.
 The easiest way is to export a bibliography from Zotero, and then add it to your Quarto document.
@@ -189,9 +253,11 @@ You can use the [Zotero Better BibTeX](https://retorque.re/zotero-better-bibtex/
 See [here](https://quarto.org/docs/authoring/footnotes-and-citations.html) for instructions on using references with Quarto or see the website code for an example.
 I'll provide a template for your final project.
 
-## Julia Quickstart
+# Julia Quickstart
 
-### Loading packages
+
+
+## Loading packages
 
 In Julia we say `using` to import a package.
 By convention we'll put these at the top of our script or notebook in alphabetical order.
@@ -212,7 +278,7 @@ using StatsPlots
 using Unitful
 ```
 
-### Read in data
+## Read in data
 
 We will use the `CSV.jl` package to read in our data.
 
@@ -260,7 +326,7 @@ first(df, 3)
 
 1. We select the column with water levels using its name. The `!` means "all rows". Thus, `df[!, " Water Level"]` is a vector of all the water levels stored. `*=` means to multiply in place. For example, if `x=2` then `x *= 2` is equivalent to `x = x * 2`. `.*=` is a vector syntax, meaning do the multiplication to each element of the vector individually. `1u"m"` is a `Unitful` object that represents 1 meter. We multiply the water levels by this to convert them to meters.
 
-### Subsetting and renaming
+## Subsetting and renaming
 
 We want to only keep the first two (for more on the other three, see [here](https://api.tidesandcurrents.noaa.gov/api/prod/responseHelp.html)).
 We can also rename the columns to make them easier to work with (spaces in variable names are annoying).
@@ -283,92 +349,7 @@ first(df, 3)
 
 For more on what `DataFramesMeta` can do, see [this Tweet](https://twitter.com/evalparse/status/1413142675688067089){target="_blank"}.
 
-### Writing a function
-
-We have just done a lot of work to read in our data.
-However, this just gives us data for the year 1928.
-In fact, we have a CSV file for each year 1928-2021.
-To make sure we can read them each in excatly the same way, we want to write a function.
-This function will take in the year as an argument, and return a `DataFrame` with the data for that year.
-
-Writing functions is an important part of programming effectively.
-Let's write a function that takes in a year and returns a DataFrame with the data for that year, following the steps we've explored above.
-
-Before we do that, let's define a function that will return the filename for a given year.
-It's often valuable to stack several functions together.
-
-```{julia}
-#| output: false
-get_fname(year::Int) = "data/tidesandcurrents-8638610-$(year)-NAVD-GMT-metric.csv"
-```
-
-```julia
-function read_tides(year::Int)
-    
-    # define the CSV file corresponding to our year of choice
-    fname = get_fname(year)
-
-    # a constant, don't change this
-    date_format = "yyyy-mm-dd HH:MM"
-    
-    # <YOUR CODE GOES HERE>
-    # 1. read in the CSV file and save as a dataframe
-    # 2. convert the "Date Time" column to a DateTime object
-    # 3. convert the " Water Level" column to meters
-    # 4. rename the columns to "datetime" and "lsl"
-    # 5. select the "datetime" and "lsl" columns
-    # 6. return the dataframe
-end
-
-# print out the first 10 rows of the 1928 data
-first(read_tides(1928), 10) 
-```
-
-::: {.callout-important}
-## Instructions
-
-Fill out this function.
-Your function should implement the six steps indicated in the instructions.
-When it's done, convert it to a live code block by replacing \```julia\``` with \```{julia}\```.
-When you run this code, it should print out the first 10 rows of the 1928 data.
-Make sure they look right!
-:::
-
-### Combining files
-
-Now that we have the ability to read in the data corresponding to any year, we can read them all in and combine into a single `DataFrame`.
-First, let's read in all the data.
-
-::: {.callout-important}
-## Instructions
-
-Update the code blocks below, then replace \```julia\``` with \```{julia}\```.
-:::
-
-```julia
-years = 1928:2021 # all the years of data
-annual_data = # 1. call the read_tides function on each year
-typeof(annual_data) # should be a vector of DataFrames
-```
-
-Next, we'll use the `vcat` function to combine all the data into a single `DataFrame`.
-
-```julia
-df = vcat(annual_data...) # don't change this
-first(df, 5)
-```
-
-```julia
-last(df, 5) # check the last 5 years and ensure they are the last 3 hours of 2021-12-31
-```
-
-Finally, we'll make sure we drop any missing data.
-
-```{julia}
-dropmissing!(df) # drop any missing data
-```
-
-### Time series plot
+## Time series plot
 
 Now we're ready to make some plots of our data.
 Let's start with a simple time series plot of the water levels.
@@ -379,7 +360,7 @@ Still, we can plot them all.
 plot(
     df.datetime,
     df.lsl;
-    title="Water levels at Sewells Point, VA",
+    title="Hourly Water levels at Sewells Point, VA",
     ylabel="Water level",
     label=false,
 )
@@ -410,23 +391,18 @@ plot(
 )
 ```
 
-:::{.callout-tip}
-## Instructions
-
-Change the `t_start` and `t_end` dates so that you plot March 2020.
-What do you notice?
-:::
-
-### Climatology
+## Climatology
 
 An essential idea in working with tabular data (and other data formats) is "split-apply-combine".
 Essentially: split the data into groups, apply some function to each group, and then combine the results.
 
 We can use this workflow to answer an interesting question: **what is the average water level for each month?**[^trend]
+Of course, we're only looking at one year of data here -- we should ideally look at a long record!
 
 [^trend]: To do a better job, we should separate out the long-term trend from the seasonal cycle. This is called de-trending and is a common technique in climate science. We can worry more about this later.  
 
 ```{julia}
+#| output: false
 df[!, :month] = Dates.month.(df.datetime) # <1>
 dropmissing!(df, :lsl) # <2>
 df_bymonth = groupby(df, :month) # <3>
@@ -456,37 +432,9 @@ plot(
 2. Setting `xticks` will set the x-axis ticks to the values in the vector. We can use this to make sure the x-axis ticks are labeled with the months.
 3. We can set the line width to make the plot easier to read.
 
-::: {.callout-important}
-## Instructions
+# All done!
 
-1. Use the full dataset to plot the climatology using data from all years
-1. Next, create a new Markdown header (`## Groupby Day of Year`) plot the average water level for each day of the year (`Dates.dayofyear` from 1 to 366).
-1. What do you notice?
-:::
+Now that you've read through the instructions, you should:
 
-Boxplots are ways to visualize the distribution of data.
-They show the median (the line in the middle of the box), the interquartile range (the box), and the range of the data (the whiskers).
-Outliers are shown as dots.
-We can use the `boxplot` function from the `StatsPlots.jl` package:
-
-```{julia}
-boxplot(
-    df[!, :month], # <1>
-    df[!, :lsl];
-    xticks=1:12,
-    xlabel="Month",
-    ylabel="Water level",
-    label=false,
-    title="Climatology", # <2>
-)
-```
-
-1. We are back to `df[!, :colname]` syntax. Both work!
-2. We can set the title using the `title` keyword argument.
-
-::: {.callout-important}
-## Instructions
-
-Repeat this analysis grouping by year rather than month.
-What do you notice from the boxplots?
-:::
+1. Ask questions about anything that doesn't make sense to you!
+1. Head over to [`template.qmd`](template.qmd) and start working on your lab!
