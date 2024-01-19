@@ -142,7 +142,7 @@ last(df, 5)
 
 Finally, we'll make sure we drop any missing data.
 
-```{julia}
+```julia
 dropmissing!(df) # drop any missing data
 ```
 
