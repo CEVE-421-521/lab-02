@@ -9,11 +9,6 @@ categories: [Lab]
 # code to use
 jupyter: julia-1.10
 
-# execution options
-execute:
-  freeze: auto  
-  cache: true
-
 format: 
     html:
         theme: spacelab
@@ -28,16 +23,12 @@ format:
         code-line-numbers: true
         html-math-method: katex
 
-    # YOU DO NOT NEED BOTH PDF AND DOCX.
-    # COMMENT OR DELETE THE ONE YOU DON'T WANT TO USE.
-    pdf:
-        documentclass: article
-        fontsize: 11pt
-        geometry:
-            - margin=1in  
-        number-sections: true
-        code-line-numbers: true
-        colorlinks: true
+    # I AM GETTING WEIRD ISSUES WHEN RENDERING TO PDF
+    # THAT I DO NOT WANT TO INFLICT ON YOU
+    # HOPE TO TROUBLESHOOT SOON, FOR NOW USE DOCX
+    # PLEASE EXPLORE https://quarto.org/docs/reference/formats/docx.html
+    # FOR WAYS TO MAKE THE OUTPUT MORE ATTRACTIVE!
+
     docx: 
         toc: true
         fig-format: png
