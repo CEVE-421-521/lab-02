@@ -329,7 +329,7 @@ df = @rename(df, :datetime = $"Date Time", :lsl = $" Water Level"); # <1>
 
 1. The `$` is needed here because the right hand side is a string, not a `Symbol`.
 
-Then, we can use the `@select` function to do select the columns we want.
+Then, we can use the `@select` function to select the columns we want.
 Notice how the first argument to `select` is the `DataFrame` and the subsequent arguments are column names.
 Notice also that our column names were strings (`"Date Time"`), but we can also use symbols (`:datetime`).
 
